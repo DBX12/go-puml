@@ -26,6 +26,3 @@ func (f File) Render(writer *Writer) error {
 	writer.Println("}")
 	return writer.GetError()
 }
-
-
-

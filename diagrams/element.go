@@ -27,7 +27,7 @@ func newElement(elementType string, id string, displayName string, config *Eleme
 		elementType: elementType,
 		id:          id,
 		displayName: displayName,
-		config: *config,
+		config:      *config,
 	}
 }
 

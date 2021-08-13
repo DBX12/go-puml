@@ -1,19 +1,18 @@
 package diagrams
 
-
 type Node struct {
-	element element
+	element  element
 	contents []string
 }
 
 func NewNode(id string, displayName string, contents []string) *Node {
-	if err := assertValidId(id); err != nil{
+	if err := assertValidId(id); err != nil {
 		panic(err)
 	}
 	return &Node{
 		element: element{
 			elementType: "node",
-			id: id,
+			id:          id,
 			displayName: displayName,
 		},
 		contents: contents,
@@ -35,7 +34,7 @@ func (n Node) Render(writer *Writer) error {
 			writer.Println(content)
 		}
 		writer.Println("]")
-	}else{
+	} else {
 		writer.Println("")
 	}
 	return writer.GetError()

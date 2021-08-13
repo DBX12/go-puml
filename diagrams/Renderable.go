@@ -9,5 +9,5 @@ type Linkable interface {
 }
 
 type Container interface {
-	Add(r ... Renderable)
+	Add(r ...Renderable)
 }
