@@ -4,6 +4,7 @@ type Diagram struct {
 	preamble    []string
 	includes    []string
 	renderables []Renderable
+	skinParams  map[string]string
 }
 
 func NewDiagram() *Diagram {
@@ -11,6 +12,7 @@ func NewDiagram() *Diagram {
 		preamble:    []string{},
 		includes:    []string{},
 		renderables: []Renderable{},
+		skinParams:  map[string]string{},
 	}
 }
 
@@ -28,10 +30,18 @@ func (d *Diagram) Preamble(str ...string) *Diagram {
 	return d
 }
 
+func (d *Diagram) SkinParam(key string, value string) *Diagram {
+	d.skinParams[key] = value
+	return d
+}
+
 func (d *Diagram) Render(writer *Writer) error {
 	writer.Println("@startuml")
 	for _, preambleLine := range d.preamble {
 		writer.Println(preambleLine)
+	}
+	for key, value := range d.skinParams {
+		writer.Printf("skinparam %s %s\n", key, value)
 	}
 	for _, include := range d.includes {
 		writer.Printf("!include %s\n", include)
