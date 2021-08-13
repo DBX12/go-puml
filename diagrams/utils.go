@@ -5,23 +5,34 @@ import (
 	"strings"
 )
 
+type invalidCharacter struct {
+	invalid     string
+	replacement string
+	displayName string
+}
+
+func getInvalidCharacters() []invalidCharacter {
+	return []invalidCharacter{
+		{" ", "", "whitespace"},
+		{"-", "_", "hyphen"},
+		{":", "_", "colon"},
+		{"/", "_", "slash"},
+	}
+}
+
 func MakeValidId(id string) string {
-	replacer := strings.NewReplacer(
-		" ", "",
-		"-", "_",
-	)
+	var oldNew []string
+	for _, definition := range getInvalidCharacters() {
+		oldNew = append(oldNew, definition.invalid, definition.replacement)
+	}
+	replacer := strings.NewReplacer(oldNew...)
 	return replacer.Replace(id)
 }
 
 func assertValidId(name string) error {
-	invalidChars := map[string]string{
-		" ": "whitespace",
-		"-": "hyphen",
-	}
-
-	for char, display := range invalidChars {
-		if strings.Contains(name, char) {
-			return errors.New("id must not contain " + display)
+	for _, definition := range getInvalidCharacters() {
+		if strings.Contains(name, definition.invalid) {
+			return errors.New("id must not contain " + definition.displayName)
 		}
 	}
 
