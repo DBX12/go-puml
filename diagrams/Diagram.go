@@ -16,20 +16,24 @@ func NewDiagram() *Diagram {
 	}
 }
 
+// Add a Renderable to the diagram
 func (d *Diagram) Add(r ...Renderable) {
 	d.renderables = append(d.renderables, r...)
 }
 
+// Include another file or library
 func (d *Diagram) Include(inc ...string) *Diagram {
 	d.includes = append(d.includes, inc...)
 	return d
 }
 
+// Adds a Preamble to the diagram
 func (d *Diagram) Preamble(str ...string) *Diagram {
 	d.preamble = append(d.preamble, str...)
 	return d
 }
 
+// Set a skin param for the diagram
 func (d *Diagram) SkinParam(key string, value string) *Diagram {
 	d.skinParams[key] = value
 	return d
