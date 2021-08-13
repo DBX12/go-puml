@@ -33,18 +33,11 @@ func (s *Writer) Print(str string) {
 	if s.err != nil {
 		return
 	}
-	_, err := s.buffer.Write([]byte(str))
-	if err != nil {
-		s.err = err
-	}
+	// no need to check for an error the Write() method of bytes.Buffer will
+	// never return an error but panic directly
+	s.buffer.Write([]byte(str))
 }
 
 func (s *Writer) Printf(format string, args ...interface{}) {
-	if s.err != nil {
-		return
-	}
-	_, err := s.buffer.Write([]byte(fmt.Sprintf(format, args...)))
-	if err != nil {
-		s.err = err
-	}
+	s.Print(fmt.Sprintf(format, args...))
 }
