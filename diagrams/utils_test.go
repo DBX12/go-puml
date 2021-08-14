@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestMakeValidId(t *testing.T) {
+func TestSanitizeId(t *testing.T) {
 	type args struct {
 		id string
 	}
@@ -26,8 +26,8 @@ func TestMakeValidId(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := MakeValidId(tt.args.id); got != tt.want {
-				t.Errorf("MakeValidId() = %v, want %v", got, tt.want)
+			if got := SanitizeId(tt.args.id); got != tt.want {
+				t.Errorf("SanitizeId() = %v, want %v", got, tt.want)
 			}
 		})
 	}

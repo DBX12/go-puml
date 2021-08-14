@@ -20,7 +20,7 @@ func getInvalidCharacters() []invalidCharacter {
 	}
 }
 
-func MakeValidId(id string) string {
+func SanitizeId(id string) string {
 	var oldNew []string
 	for _, definition := range getInvalidCharacters() {
 		oldNew = append(oldNew, definition.invalid, definition.replacement)
