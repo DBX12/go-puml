@@ -1,6 +1,7 @@
 package diagrams
 
 import (
+	"reflect"
 	"testing"
 )
 
@@ -57,6 +58,45 @@ func Test_assertValidId(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if err := assertValidId(tt.args.name); (err != nil) != tt.wantErr {
 				t.Errorf("assertValidId() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+func Test_conditionalPrintf(t *testing.T) {
+	type args struct {
+		format string
+		value  string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			"With content",
+			args{
+				format: "-> %s",
+				value:  "content",
+			},
+			"-> content",
+		},
+		{
+			"Without content",
+			args{
+				format: "-> %s",
+				value:  "",
+			},
+			"",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			writer := NewWriter()
+			conditionalPrintf(&writer, tt.args.format, tt.args.value)
+			got := writer.String()
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("conditionalPrintf() string = %v, want = %v", got, tt.want)
 			}
 		})
 	}
