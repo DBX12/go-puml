@@ -13,18 +13,18 @@ func TestDiagram_Add(t *testing.T) {
 		renderables: []Renderable{},
 		skinParams:  map[string]string{},
 	}
-	comment := NewComment("Hello comment")
-	d.Add(comment)
+	renderable := DummyRenderable{}
+	d.Add(renderable)
 
 	// assert that the renderable was added
-	if !reflect.DeepEqual(d.renderables[0], comment) {
+	if !reflect.DeepEqual(d.renderables[0], renderable) {
 		t.Errorf("Add() Did not find the correct renderable in the renderables slice at index 0")
 	}
 
-	d.Add(comment)
+	d.Add(renderable)
 
 	// assert that adding the same renderable twice works
-	if !reflect.DeepEqual(d.renderables[1], comment) {
+	if !reflect.DeepEqual(d.renderables[1], renderable) {
 		t.Errorf("Add() Did not find the correct renderable in the renderables slice at index 1")
 	}
 }
@@ -83,9 +83,9 @@ func TestDiagram_Render(t *testing.T) {
 		skinParams  map[string]string
 	}
 	tests := []struct {
-		name    string
-		fields  fields
-		want    string
+		name   string
+		fields fields
+		want   string
 	}{
 		{
 			"test preamble",
@@ -122,7 +122,7 @@ bar
 			fields{
 				preamble:    []string{},
 				includes:    []string{},
-				renderables: []Renderable{NewComment("Hello comment"), NewComment("Hello second comment")},
+				renderables: []Renderable{DummyRenderable{"' Hello comment"}, DummyRenderable{"' Hello second comment"}},
 				skinParams:  map[string]string{},
 			},
 			`
@@ -155,7 +155,7 @@ skinparam roundCorner 15
 			fields{
 				preamble:    []string{"foo", "bar"},
 				includes:    []string{"inc1", "inc2"},
-				renderables: []Renderable{NewComment("Hello comment"), NewComment("Hello second comment")},
+				renderables: []Renderable{DummyRenderable{"' Hello comment"}, DummyRenderable{"' Hello second comment"}},
 				skinParams: map[string]string{
 					"monochrome":  "true",
 					"roundCorner": "15",
