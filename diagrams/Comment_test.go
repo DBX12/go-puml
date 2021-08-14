@@ -2,7 +2,6 @@ package diagrams
 
 import (
 	"reflect"
-	"strings"
 	"testing"
 )
 
@@ -47,11 +46,7 @@ func TestComment_Render(t *testing.T) {
 			}
 			actual := writer.String()
 			if !reflect.DeepEqual(tt.want, actual) {
-				t.Errorf(
-					"Render() string = %v, want %v",
-					strings.ReplaceAll(actual, "\n", "\\n"),
-					strings.ReplaceAll(tt.want, "\n", "\\n"),
-				)
+				escapeErrorf(t, "Render() string = %v, want %v", actual, tt.want)
 			}
 		})
 	}

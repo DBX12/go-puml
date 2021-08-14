@@ -191,11 +191,7 @@ skinparam roundCorner 15
 			// remove the leading \n added when writing the test spec
 			want := strings.TrimLeft(tt.want, "\n")
 			if !reflect.DeepEqual(actual, want) {
-				t.Errorf(
-					"Render() string = %v, want %v",
-					strings.ReplaceAll(actual, "\n", "\\n"),
-					strings.ReplaceAll(want, "\n", "\\n"),
-				)
+				escapeErrorf(t, "Render() string = %v, want %v", actual, want)
 			}
 		})
 	}
