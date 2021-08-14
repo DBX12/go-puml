@@ -1,4 +1,6 @@
-package diagrams
+package generic
+
+import "github.com/dbx12/go-puml/diagrams"
 
 type Link struct {
 	leftId  string
@@ -11,7 +13,7 @@ type LinkConfig struct {
 	Label string
 }
 
-func NewLink(left Linkable, right Linkable, config *LinkConfig) *Link {
+func NewLink(left diagrams.Linkable, right diagrams.Linkable, config *LinkConfig) *Link {
 	return NewLinkFromIds(left.GetId(), right.GetId(), config)
 }
 
@@ -29,7 +31,7 @@ func NewLinkFromIds(leftId string, rightId string, config *LinkConfig) *Link {
 	}
 }
 
-func (l Link) Render(writer *Writer) error {
+func (l Link) Render(writer *diagrams.Writer) error {
 	writer.Printf("%s %s %s", l.leftId, l.config.Line, l.rightId)
 	if len(l.config.Label) > 0 {
 		writer.Printf(" : %s", l.config.Label)

@@ -1,6 +1,9 @@
-package diagrams
+package generic
 
-import "strings"
+import (
+	"github.com/dbx12/go-puml/diagrams"
+	"strings"
+)
 
 type NotePosition int
 
@@ -17,7 +20,7 @@ type Note struct {
 	contents []string
 }
 
-func NewNoteForLinkable(target Linkable, position NotePosition, contents []string) *Note {
+func NewNoteForLinkable(target diagrams.Linkable, position NotePosition, contents []string) *Note {
 	return NewNoteForId(target.GetId(), position, contents)
 }
 
@@ -29,7 +32,7 @@ func NewNoteForId(id string, position NotePosition, contents []string) *Note {
 	}
 }
 
-func (n Note) Render(writer *Writer) error {
+func (n Note) Render(writer *diagrams.Writer) error {
 	positions := map[NotePosition]string{
 		BELOW: "bottom",
 		RIGHT: "right",

@@ -1,6 +1,7 @@
-package diagrams
+package generic
 
 import (
+	"github.com/dbx12/go-puml/diagrams"
 	"reflect"
 	"testing"
 )
@@ -41,7 +42,7 @@ func TestNewNoteForId(t *testing.T) {
 
 func TestNewNoteForLinkable(t *testing.T) {
 	type args struct {
-		r        Linkable
+		r        diagrams.Linkable
 		position NotePosition
 		contents []string
 	}
@@ -103,7 +104,7 @@ func TestNote_Render(t *testing.T) {
 				position: tt.fields.position,
 				contents: tt.fields.contents,
 			}
-			writer := NewWriter()
+			writer := diagrams.NewWriter()
 			if err := n.Render(&writer); err != nil {
 				t.Error("Render() got error but wanted none")
 			}

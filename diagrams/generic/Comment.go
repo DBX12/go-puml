@@ -1,6 +1,9 @@
-package diagrams
+package generic
 
-import "strings"
+import (
+	"github.com/dbx12/go-puml/diagrams"
+	"strings"
+)
 
 // Comment renders a diagram code comment starting with a '
 // The Comment.text will be invisible on the generated diagram
@@ -14,7 +17,7 @@ func NewComment(text string) *Comment {
 	return &Comment{text: text}
 }
 
-func (c Comment) Render(writer *Writer) error {
+func (c Comment) Render(writer *diagrams.Writer) error {
 	// remove trailing newlines
 	c.text = strings.TrimRight(c.text, "\n")
 	lines := strings.Split(c.text, "\n")

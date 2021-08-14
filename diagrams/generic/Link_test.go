@@ -1,6 +1,7 @@
-package diagrams
+package generic
 
 import (
+	"github.com/dbx12/go-puml/diagrams"
 	"reflect"
 	"testing"
 )
@@ -48,7 +49,7 @@ func TestLink_Render(t *testing.T) {
 				rightId: tt.fields.rightId,
 				config:  tt.fields.config,
 			}
-			writer := NewWriter()
+			writer := diagrams.NewWriter()
 			if err := l.Render(&writer); err != nil {
 				t.Errorf("Render() got error and wanted none")
 			}
@@ -68,8 +69,8 @@ func TestNewLink(t *testing.T) {
 		Label: "my label",
 	}
 	type args struct {
-		left   Linkable
-		right  Linkable
+		left   diagrams.Linkable
+		right  diagrams.Linkable
 		config *LinkConfig
 	}
 	tests := []struct {

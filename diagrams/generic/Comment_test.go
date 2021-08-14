@@ -1,6 +1,7 @@
-package diagrams
+package generic
 
 import (
+	"github.com/dbx12/go-puml/diagrams"
 	"reflect"
 	"testing"
 )
@@ -40,7 +41,7 @@ func TestComment_Render(t *testing.T) {
 			c := Comment{
 				text: tt.fields.text,
 			}
-			writer := NewWriter()
+			writer := diagrams.NewWriter()
 			if err := c.Render(&writer); err != nil {
 				t.Error("Render() got error but wanted none")
 			}
