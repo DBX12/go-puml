@@ -46,3 +46,20 @@ func conditionalPrintf(writer *Writer, format string, value string) {
 		writer.Printf(format, value)
 	}
 }
+
+//renderInnerElements renders inner elements enclosed in { if the renderables
+//slice slice contains at least one element
+func renderInnerElements(writer *Writer, renderables []Renderable) error {
+	if len(renderables) == 0 {
+		return nil
+	}
+	writer.Println(" {")
+	for _, renderable := range renderables {
+		err := renderable.Render(writer)
+		if err != nil {
+			return err
+		}
+	}
+	writer.Print("}")
+	return writer.GetError()
+}

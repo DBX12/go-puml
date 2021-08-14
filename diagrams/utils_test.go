@@ -101,3 +101,37 @@ func Test_conditionalPrintf(t *testing.T) {
 		})
 	}
 }
+
+func Test_renderInnerElements(t *testing.T) {
+	tests := []struct {
+		name        string
+		renderables []Renderable
+		want        string
+	}{
+		{
+			"without elements",
+			[]Renderable{},
+			"",
+		},
+		{
+			"with elements",
+			[]Renderable{
+				DummyRenderable{Content: "Dummy 01"},
+				DummyRenderable{Content: "Dummy 02"},
+			},
+			" {\nDummy 01\nDummy 02\n}",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			writer := NewWriter()
+			if err := renderInnerElements(&writer, tt.renderables); err != nil {
+				t.Error("renderInnerElements() got an error but wanted none")
+			}
+			got := writer.String()
+			if !reflect.DeepEqual(got, tt.want) {
+				escapeErrorf(t, "renderInnerElements() string = %v, want = %v", got, tt.want)
+			}
+		})
+	}
+}
