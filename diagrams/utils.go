@@ -39,9 +39,9 @@ func assertValidId(name string) error {
 	return nil
 }
 
-//conditionalPrintf only prints the formatted string to the writer if the given
+//ConditionalPrintf only prints the formatted string to the writer if the given
 //value is not an empty string
-func conditionalPrintf(writer *Writer, format string, value string) {
+func ConditionalPrintf(writer *Writer, format string, value string) {
 	if value != "" {
 		writer.Printf(format, value)
 	}

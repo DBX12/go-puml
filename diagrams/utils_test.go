@@ -93,7 +93,7 @@ func Test_conditionalPrintf(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			writer := NewWriter()
-			conditionalPrintf(&writer, tt.args.format, tt.args.value)
+			ConditionalPrintf(&writer, tt.args.format, tt.args.value)
 			got := writer.String()
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("conditionalPrintf() string = %v, want = %v", got, tt.want)

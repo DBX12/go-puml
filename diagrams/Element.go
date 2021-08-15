@@ -20,8 +20,8 @@ func NewElement(typeString string, id string, elementConfig *ElementConfig) *Ele
 
 func (e Element) Render(writer *Writer) error {
 	writer.Printf("%s %s", e.TypeString, e.Id)
-	conditionalPrintf(writer, " <<%s>>", e.Config.Stereotype)
-	conditionalPrintf(writer, " as \"%s\"", e.Config.DisplayName)
+	ConditionalPrintf(writer, " <<%s>>", e.Config.Stereotype)
+	ConditionalPrintf(writer, " as \"%s\"", e.Config.DisplayName)
 	e.Config.render(writer)
 	writer.Println("")
 	return writer.GetError()
